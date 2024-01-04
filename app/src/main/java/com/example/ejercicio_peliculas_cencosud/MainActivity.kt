@@ -1,8 +1,10 @@
 package com.example.ejercicio_peliculas_cencosud
 
+import android.Manifest
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -13,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.ejercicio_peliculas_cencosud.ui.theme.Ejercicio_peliculas_cencosudTheme
 
 class MainActivity : ComponentActivity() {
+
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -26,6 +30,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
     }
 }
 
