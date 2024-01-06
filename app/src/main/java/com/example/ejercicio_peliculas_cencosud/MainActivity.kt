@@ -22,6 +22,7 @@ import com.example.ejercicio_peliculas_cencosud.common.NetworkUtils.isInternetAv
 import com.example.ejercicio_peliculas_cencosud.dashboard.ui.DashboardTitle
 import com.example.ejercicio_peliculas_cencosud.dashboard.ui.DashboardViewModel
 import com.example.ejercicio_peliculas_cencosud.dashboard.ui.MoviesLazyColumnComposable
+import com.example.ejercicio_peliculas_cencosud.dashboard.ui.SpinnerIndicator
 import com.example.ejercicio_peliculas_cencosud.ui.theme.GeneralBackgroundColor
 import com.example.ejercicio_peliculas_cencosud.ui.theme.MainAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column(modifier = Modifier.background(GeneralBackgroundColor)) {
                         DashboardTitle()
+                        SpinnerIndicator(dashboardViewModel)
                         MoviesLazyColumnComposable(dashboardViewModel){}
                     }
                 }

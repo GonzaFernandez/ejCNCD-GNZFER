@@ -1,5 +1,7 @@
 package com.example.ejercicio_peliculas_cencosud.dashboard.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ejercicio_peliculas_cencosud.dashboard.domain.GetMoviesUseCase
@@ -14,6 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(private val moviesUseCase: GetMoviesUseCase): ViewModel() {
+
+    private val _showLoader = MutableLiveData<Boolean>().apply { postValue(true) }
+    val showLoader: LiveData<Boolean> = _showLoader
+
     private val _movieListFlow = MutableStateFlow(emptyList<Movie>())
     var movieListFlow: StateFlow<List<Movie>> = _movieListFlow
 
@@ -22,6 +28,7 @@ class DashboardViewModel @Inject constructor(private val moviesUseCase: GetMovie
             val movies: Flow<List<Movie>?> = moviesUseCase.invoke(isInternetConnected)
             movies.collect {
                 listOfMovies -> listOfMovies?.let { _movieListFlow.emit(it)}
+                _showLoader.postValue(false)
             }
         }
     }

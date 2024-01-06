@@ -18,6 +18,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -31,6 +33,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.ejercicio_peliculas_cencosud.dashboard.domain.model.Movie
 import com.example.ejercicio_peliculas_cencosud.ui.theme.CardBackgroundColor
+
 
 @Composable
 fun DashboardTitle() {
@@ -97,10 +100,15 @@ fun MovieComposable(movie: Movie, onItemSelected:(Movie) -> Unit) {
 }
 
 @Composable
-fun SpinnerIndicator(){
-    Box(modifier = Modifier
-        .fillMaxSize(),
-        contentAlignment = Center) {
-        CircularProgressIndicator()
+fun SpinnerIndicator(dashboardViewModel: DashboardViewModel){
+    val showLoader: Boolean by dashboardViewModel.showLoader.observeAsState(false)
+    if (showLoader) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Center
+        ) {
+            CircularProgressIndicator()
+        }
     }
 }
