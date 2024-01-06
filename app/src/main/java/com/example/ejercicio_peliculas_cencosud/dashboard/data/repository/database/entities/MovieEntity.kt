@@ -13,5 +13,6 @@ data class MovieEntity(
     @ColumnInfo("year") val year: String,
     @ColumnInfo("releaseState") val releaseState: String,
     @ColumnInfo("image") val image: String,
-    @ColumnInfo("stars") val stars: String
+    @ColumnInfo("stars") val stars: String,
+    @ColumnInfo("plot") val plot: String
 )

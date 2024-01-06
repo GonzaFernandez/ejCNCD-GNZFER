@@ -5,13 +5,13 @@ import com.example.ejercicio_peliculas_cencosud.dashboard.data.repository.api.dt
 import com.example.ejercicio_peliculas_cencosud.dashboard.data.repository.database.entities.MovieEntity
 
 fun MovieEntity.toMovie(): Movie {
-    return Movie(id,title, fullTitle, year, releaseState, image, stars)
+    return Movie(id,title, fullTitle, year, releaseState, image, stars, plot)
 }
 
 fun Movie.toMovieEntity(): MovieEntity {
-    return MovieEntity(id, title, fullTitle, year, releaseState, image, stars)
+    return MovieEntity(id, title, fullTitle, year, releaseState, image, stars, plot)
 }
 
 fun MovieDto.toMovie(): Movie {
-    return Movie(id,title, fullTitle, year, releaseState, image, stars)
+    return Movie(id,title, fullTitle, year, releaseState, image, stars, plot)
 }

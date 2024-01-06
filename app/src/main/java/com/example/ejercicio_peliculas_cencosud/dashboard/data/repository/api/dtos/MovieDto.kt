@@ -16,5 +16,8 @@ class MovieDto (
     @SerializedName("image")
     val image: String,
     @SerializedName("stars")
-    val stars: String
+    val stars: String,
+    @SerializedName("plot")
+    val plot: String
+
 )

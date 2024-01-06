@@ -7,6 +7,6 @@ import retrofit2.http.GET
 
 interface MoviesApiClient {
 
-    @GET(BuildConfig.FILMS_API_URL)
+    @GET("${BuildConfig.FILMS_API_URL}movies.json?key=cb03b960")
     suspend fun getFilmsList(): Response<MovieListResponseDto>
 }

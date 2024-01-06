@@ -51,8 +51,9 @@ object HiltModule {
 
     @Provides
     @Singleton
-    fun provideRoom(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, MoviesDatabase::class.java, MOVIES_DATABASE).build()
+    fun provideRoom(@ApplicationContext context: Context): MoviesDatabase{
+        return  Room.databaseBuilder(context, MoviesDatabase::class.java, MOVIES_DATABASE).build()
+    }
 
     @Provides
     @Singleton
