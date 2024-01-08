@@ -1,6 +1,7 @@
 package com.example.ejercicio_peliculas_cencosud.dashboard.domain
 
 import com.example.ejercicio_peliculas_cencosud.common.ApiResponse
+import com.example.ejercicio_peliculas_cencosud.common.DatesUtil.simpleDateConverter
 import com.example.ejercicio_peliculas_cencosud.common.toMovie
 import com.example.ejercicio_peliculas_cencosud.dashboard.data.repository.api.MoviesApiRepository
 import com.example.ejercicio_peliculas_cencosud.dashboard.data.repository.database.MoviesDatabaseRepository
@@ -19,7 +20,8 @@ class GetMoviesUseCase @Inject constructor(
         if (isInternetOn) {
             return when (val response = apiRepository.getFilmsList()) {
                 is ApiResponse.Success -> {
-                    val films = response.data?.items?.map { it.toMovie() }
+                    val films: List<Movie>? = response.data?.items?.map { it.toMovie() }?.
+                    toMutableList()?.sortedByDescending { simpleDateConverter(it.releaseState) }
                     films?.let {
                         dbRepository.clearAllMoviesFromTable()
                         dbRepository.insertMoviesToDb(it)
