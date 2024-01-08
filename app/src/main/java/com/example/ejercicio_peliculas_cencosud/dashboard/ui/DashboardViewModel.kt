@@ -23,6 +23,8 @@ class DashboardViewModel @Inject constructor(private val moviesUseCase: GetMovie
     private val _movieListFlow = MutableStateFlow(emptyList<Movie>())
     var movieListFlow: StateFlow<List<Movie>> = _movieListFlow
 
+    lateinit var clickedMovie: Movie
+
     fun getMoviesFromRepository(isInternetConnected: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val movies: Flow<List<Movie>?> = moviesUseCase.invoke(isInternetConnected)

@@ -29,11 +29,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.ejercicio_peliculas_cencosud.dashboard.domain.model.Movie
+import com.example.ejercicio_peliculas_cencosud.navigation.Routes
 import com.example.ejercicio_peliculas_cencosud.ui.theme.CardBackgroundColor
+import com.example.ejercicio_peliculas_cencosud.ui.theme.GeneralBackgroundColor
 
+@Composable
+fun DashboardView(dashboardViewModel: DashboardViewModel, navigationController: NavHostController){
+    Column(modifier = Modifier.background(GeneralBackgroundColor)) {
+        DashboardTitle()
+        SpinnerIndicator(dashboardViewModel)
+        MoviesLazyColumnComposable(dashboardViewModel, navigationController)
+    }
+}
 
 @Composable
 fun DashboardTitle() {
@@ -47,8 +58,8 @@ fun DashboardTitle() {
     )
 }
 
-@Composable
-fun MoviesLazyColumnComposable(dashboardViewModel: DashboardViewModel, onMovieClicked:(Movie) -> Unit) {
+@Composable//titulo, release state ordenados por fecha de estreno
+fun MoviesLazyColumnComposable(dashboardViewModel: DashboardViewModel, navigationController: NavHostController) {
     val recyclerState = rememberLazyGridState()
     val movies = dashboardViewModel.movieListFlow.collectAsState(initial = emptyList()).value
     Column {
@@ -62,7 +73,8 @@ fun MoviesLazyColumnComposable(dashboardViewModel: DashboardViewModel, onMovieCl
             content = {
                 items(items = movies) { movie ->
                     MovieComposable(movie) {
-                        onMovieClicked(it)
+                        dashboardViewModel.clickedMovie = it
+                        navigationController.navigate(Routes.MovieDescription.route)
                     }
                 }
             })
@@ -84,7 +96,7 @@ fun MovieComposable(movie: Movie, onItemSelected:(Movie) -> Unit) {
                     .padding(8.dp)
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
-            )//titulo, release state ordenados por fecha de estreno
+            )
             Text(text = movie.fullTitle,
                 modifier = Modifier
                     .align(CenterHorizontally)
