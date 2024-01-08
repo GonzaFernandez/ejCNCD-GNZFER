@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,7 +16,11 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,10 +42,31 @@ import com.example.ejercicio_peliculas_cencosud.navigation.Routes
 import com.example.ejercicio_peliculas_cencosud.ui.theme.CardBackgroundColor
 import com.example.ejercicio_peliculas_cencosud.ui.theme.GeneralBackgroundColor
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardView(dashboardViewModel: DashboardViewModel, navigationController: NavHostController){
-    Column(modifier = Modifier.background(GeneralBackgroundColor)) {
-        DashboardTitle()
+fun DashboardScaffoldView(
+    dashboardViewModel: DashboardViewModel,
+    navigationController: NavHostController
+) {
+    Scaffold(topBar = { DashboardTopBar() }, content = {
+            contentPadding -> DashboardView(dashboardViewModel, navigationController, contentPadding)
+    })
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DashboardTopBar(){
+    TopAppBar(title = { DashboardTitle()},
+        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = GeneralBackgroundColor,
+        titleContentColor = Color.White))
+}
+
+@Composable
+fun DashboardView(
+    dashboardViewModel: DashboardViewModel,
+    navigationController: NavHostController,
+    contentPadding: PaddingValues
+){
+    Column(modifier = Modifier.background(GeneralBackgroundColor).padding(paddingValues = contentPadding)) {
         SpinnerIndicator(dashboardViewModel)
         MoviesLazyColumnComposable(dashboardViewModel, navigationController)
     }
@@ -58,7 +84,7 @@ fun DashboardTitle() {
     )
 }
 
-@Composable//titulo, release state ordenados por fecha de estreno
+@Composable
 fun MoviesLazyColumnComposable(dashboardViewModel: DashboardViewModel, navigationController: NavHostController) {
     val recyclerState = rememberLazyGridState()
     val movies = dashboardViewModel.movieListFlow.collectAsState(initial = emptyList()).value

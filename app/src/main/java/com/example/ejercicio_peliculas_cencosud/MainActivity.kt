@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ejercicio_peliculas_cencosud.common.NetworkUtils.isInternetAvailable
+import com.example.ejercicio_peliculas_cencosud.dashboard.ui.DashboardScaffoldView
 import com.example.ejercicio_peliculas_cencosud.dashboard.ui.DashboardView
 import com.example.ejercicio_peliculas_cencosud.dashboard.ui.DashboardViewModel
 import com.example.ejercicio_peliculas_cencosud.dashboard.ui.MovieDescriptionScaffold
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     val navigationController = rememberNavController()
                     NavHost(navController = navigationController, startDestination = "Dashboard"){
                         composable(Routes.Dashboard.route) {
-                            DashboardView(dashboardViewModel, navigationController)
+                            DashboardScaffoldView(dashboardViewModel, navigationController)
                         }
                         composable(Routes.MovieDescription.route) {
                             MovieDescriptionScaffold(dashboardViewModel, navigationController)
