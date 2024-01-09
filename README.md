@@ -20,3 +20,7 @@ la vista principal que yo llamo dashboard donde se tiene una grilla que en cada 
 Cuando el usuario da clic sobre un ítem de la lista, se abre la segunda vista nombrada MovieDescription donde se muestran mas detalles sobre la película.
 ### Resumen de diseño de las otras capas:
 Decidí organizar el proyecto en una estructura de una carpeta por feature y otras carpetas para las cosas comunes del proyecto como helpers, la navegacion y las extensiones.
+### Mejoras:
+- Agregar mas unit test y otros tipos como instrumentation test
+- Arreglar los unit test del networkUitls que no funcionan
+- Mejorar la ui.
