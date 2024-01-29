@@ -10,7 +10,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.ejercicio_peliculas_cencosud"
+        applicationId 'com.example.ejercicio_peliculas'
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -68,6 +68,7 @@ dependencies {
     implementation 'androidx.compose.runtime:runtime-livedata:1.5.4'
     implementation 'androidx.navigation:navigation-compose:2.7.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     //Retrofit
