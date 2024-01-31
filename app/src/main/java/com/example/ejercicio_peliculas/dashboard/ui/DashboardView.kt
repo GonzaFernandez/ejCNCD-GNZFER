@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.ejercicio_peliculas.bottom_menu.BottomNavigationMenu
 import com.example.ejercicio_peliculas.dashboard.domain.model.Movie
 import com.example.ejercicio_peliculas.navigation.Routes
 import com.example.ejercicio_peliculas.ui.theme.CardBackgroundColor
@@ -48,9 +49,12 @@ fun DashboardScaffoldView(
     dashboardViewModel: DashboardViewModel,
     navigationController: NavHostController
 ) {
-    Scaffold(topBar = { DashboardTopBar() }, content = {
+    Scaffold(topBar = { DashboardTopBar() },
+        content = {
             contentPadding -> DashboardView(dashboardViewModel, navigationController, contentPadding)
-    })
+        },
+        bottomBar = { BottomNavigationMenu() }
+    )
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
