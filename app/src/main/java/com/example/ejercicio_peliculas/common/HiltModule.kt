@@ -13,6 +13,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Authenticator
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,10 +31,12 @@ object HiltModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(interceptor: Interceptor, authenticator: Authenticator): OkHttpClient {
         return OkHttpClient().newBuilder()
             .connectTimeout(1L, TimeUnit.MINUTES)
             .readTimeout(1L, TimeUnit.MINUTES)
+            .addInterceptor(interceptor)
+            .authenticator(authenticator)
             .build()
     }
 
@@ -63,5 +67,13 @@ object HiltModule {
     @Singleton
     @Provides
     fun providePreferencesDataStore(@ApplicationContext app: Context): PreferencesRepository = PreferencesRepository(app)
+
+    @Singleton
+    @Provides
+    fun provideAuthenticator(): Authenticator = AuthenticatorImp()
+
+    @Singleton
+    @Provides
+    fun provideInterceptor(): Interceptor = InterceptorsImp()
 
 }

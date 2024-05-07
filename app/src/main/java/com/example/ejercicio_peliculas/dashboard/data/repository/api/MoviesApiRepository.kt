@@ -17,11 +17,11 @@ class MoviesApiRepository @Inject constructor(private val apiServices: MoviesApi
                 if (response.isSuccessful) {
                     ApiResponse.Success(response.body())
                 } else {
-                    ApiResponse.Error(response.message())
+                    ApiResponse.Error(response.code(), response.message())
                 }
             }
         } catch (e: Exception) {
-            ApiResponse.Error(e.message!!)
+            ApiResponse.Error(0, e.message!!)
         }
     }
 
